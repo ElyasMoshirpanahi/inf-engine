@@ -1,0 +1,46 @@
+name: cool
+
+on: [push]
+
+jobs:
+    ubuntu:
+        name: running action on ubuntu
+        runs-on: ubuntu-latest
+        steps:
+          - name: Step one
+            uses: actions/upload-artifact
+
+          - name: Step Two
+            run: echo "Hello world!" && date
+
+          - name: Step Three
+            uses: actions/download-artifact
+
+    windows:
+        name: running action on windows
+        runs-on: windows-latest
+        steps:
+          - name: Step one
+            uses: actions/upload-artifact
+
+          - name: Step Two
+            run: echo "Hello world!" && date
+
+          - name: Step Three
+            uses: actions/download-artifact
+
+    MacOs:
+        name: running action on macos
+        runs-on: macos-latest
+        needs: [windows,ubuntu]
+        steps:
+          - name: Step one
+            uses: actions/upload-artifact
+
+          - name: Step Two
+            run: echo "Hello world!" && date
+
+          - name: Step Three
+            uses: actions/download-artifact
+
+
