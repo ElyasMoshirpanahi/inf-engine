@@ -19,6 +19,7 @@ jobs:
     windows:
         name: running action on windows
         runs-on: windows-latest
+        needs: [ubuntu]
         steps:
           - name: Step one
             uses: actions/download-artifact@v1.0.0
