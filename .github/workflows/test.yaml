@@ -2,31 +2,35 @@ name: cool
 
 on: [push]
 
+env:
+    FILE_NAME: README
 jobs:
-    ubuntu:
-        name: running action on ubuntu
-        runs-on: ubuntu-latest
-        steps:
-          - name: Step one
-            uses: actions/upload-artifact@v1.0.0
+  ubuntu:
+    name: Ubuntu Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+            name: linux-ubuntu
+            path: ${{ env.FILENAME}}
 
-          - name: Step Two
-            run: echo "Hello world!" && date
+      - name: Run Command
+        run: echo "Hello world!" && date
 
-          - name: Step Three
-            uses: actions/upload-artifact@v1.0.0
 
-    windows:
-        name: running action on windows
-        runs-on: windows-latest
-        needs: [ubuntu]
-        steps:
-          - name: Step one
-            uses: actions/download-artifact@v1.0.0
+  windows:
+    name: Windows Job
+    runs-on: windows-latest
+    needs: [ubuntu]
+    steps:
 
-          - name: Step Two
-            run: echo "Hello world!" && date
+      - name: Run Command
+        run: echo "Hello world!" && date
 
-          - name: Step Three
-            uses: actions/download-artifact@v1.0.0
+      - name: Download Artifact Again
+        uses: actions/download-artifact@v1.0.0
+        with:
+            name: linux-ubuntu
+            path: ${{ env.FILENAME}}
 
